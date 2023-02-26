@@ -10,6 +10,7 @@ type Props = {
 };
 
 export default function Home() {
+	const { data } = useSession();
 	const { data: session } = useSession();
 	return <Box>{session?.user?.username ? <Chat /> : <Auth />}</Box>;
 }
