@@ -7,12 +7,16 @@ import {
 	ModalOverlay,
 } from '@chakra-ui/react';
 
-type Props = {};
+type Props = {
+	isOpen: boolean;
+	onClose: () => void;
+};
 
-const ConversationModal = (props: Props) => {
+const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 	return (
 		<>
-			<Modal>
+			<Modal isOpen={isOpen} onClose={onClose}>
+				{/** look here */}
 				<ModalOverlay />
 				<ModalContent bg="whiteAlpha.100" pb="4" color="white">
 					<ModalHeader>search for other users</ModalHeader>
@@ -24,4 +28,4 @@ const ConversationModal = (props: Props) => {
 	);
 };
 
-export default ConversationModal;
+export default SearchUsersModal;
