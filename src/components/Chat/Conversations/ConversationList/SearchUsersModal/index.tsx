@@ -16,7 +16,7 @@ type Props = {
 	onClose: () => void;
 };
 
-const ConversationModal = ({ isOpen, onClose }: Props) => {
+const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 	const [searchedUsername, setSearchedUsername] = useState('');
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
@@ -56,4 +56,4 @@ const ConversationModal = ({ isOpen, onClose }: Props) => {
 	);
 };
 
-export default ConversationModal;
+export default SearchUsersModal;
