@@ -18,6 +18,7 @@ import {
 import operations from '@/lib/graphQL/operations';
 import { useState } from 'react';
 import SearchedUsersList from './SearchedUsersList';
+import AddedUsersList from './AddedUsersList';
 
 type Props = {
 	isOpen: boolean;
@@ -72,6 +73,18 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 								searchedUsers={searcedResult.searchUsers}
 								addUser={addUser}
 							/>
+						)}
+						{addedUsers.length !== 0 && (
+							<>
+								<AddedUsersList />
+								<Button
+									bg="brand.100"
+									width="100%"
+									mt="6"
+									_hover={{ bg: 'brand.100' }}>
+									Start chats
+								</Button>
+							</> //look here
 						)}
 					</ModalBody>
 				</ModalContent>
