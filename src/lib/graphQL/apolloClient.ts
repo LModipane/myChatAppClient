@@ -7,6 +7,8 @@ const httpLink = new HttpLink({
 
 const apolloClient = new ApolloClient({
 	link: httpLink,
+	connectToDevTools: process.env.NODE_ENV !== 'production',
+	queryDeduplication: true,
 	cache: new InMemoryCache(), //this prop will cacche our response so that we it wont perform unnecessary requests
 }); //this object will send request to our apollo server
 
