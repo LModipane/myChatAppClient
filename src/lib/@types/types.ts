@@ -19,6 +19,6 @@ export type SearchedUser = {
 	username: string,
 }
 
-export type SearchedForUsersArs = {
+export type SearchedUsersArs = {
 	searchedUsername: string,
 }
