@@ -1,12 +1,13 @@
 import { Avatar, Button, Flex, Stack, Text } from '@chakra-ui/react';
-import type { SearchedUser } from '@/lib/@types/types';
+import { SearchedUser } from '@/lib/@types/types';
 import React from 'react';
 
 type Props = {
 	searchedUsers: Array<SearchedUser>;
+	addUser: (user: SearchedUser) => void;
 };
 
-const SearchedUsersList = ({ searchedUsers }: Props) => {
+const SearchedUsersList = ({ searchedUsers, addUser }: Props) => {
 	return (
 		<>
 			{searchedUsers.length === 0 ? (
@@ -29,11 +30,13 @@ const SearchedUsersList = ({ searchedUsers }: Props) => {
 								<Avatar src="" />
 								<Flex justify="space-between" width="100%" align="center">
 									<Text>{user.username}</Text>
-									<Button bg="blue.400" _hover={{ bg: 'blue.400' }}>
+									<Button
+										bg="blue.400"
+										_hover={{ bg: 'blue.400' }}
+										onClick={event => addUser(user)}>
 										add
 									</Button>
 								</Flex>
-								{/**look here*/}
 							</Stack>
 						);
 					})}

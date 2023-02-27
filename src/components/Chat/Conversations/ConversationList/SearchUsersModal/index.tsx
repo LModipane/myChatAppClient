@@ -10,7 +10,11 @@ import {
 	ModalOverlay,
 	Stack,
 } from '@chakra-ui/react';
-import { SearchedUsersArs, SearchUsersResponse } from '@/lib/@types/types';
+import {
+	SearchedUser,
+	SearchedUsersArs,
+	SearchUsersResponse,
+} from '@/lib/@types/types';
 import operations from '@/lib/graphQL/operations';
 import { useState } from 'react';
 import SearchedUsersList from './SearchedUsersList';
@@ -22,6 +26,9 @@ type Props = {
 
 const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 	const [searchedUsername, setSearchedUsername] = useState('');
+
+	const [addedUsers, setAddedUsers] = useState<Array<SearchedUser>>([]);
+
 	const [searchForUsers, { data: searcedResult, loading }] = useLazyQuery<
 		SearchUsersResponse,
 		SearchedUsersArs
@@ -31,6 +38,11 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 		event.preventDefault();
 		searchForUsers({ variables: { searchedUsername } });
 	};
+
+	const addUser = (user: SearchedUser) => {
+		setAddedUsers(preAddedUsers => [...preAddedUsers, user]);
+	};
+
 	return (
 		<>
 			<Modal isOpen={isOpen} onClose={onClose}>
@@ -56,7 +68,10 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 							</Stack>
 						</form>
 						{searcedResult && (
-							<SearchedUsersList searchedUsers={searcedResult.searchUsers} />
+							<SearchedUsersList
+								searchedUsers={searcedResult.searchUsers}
+								addUser={addUser}
+							/>
 						)}
 					</ModalBody>
 				</ModalContent>
