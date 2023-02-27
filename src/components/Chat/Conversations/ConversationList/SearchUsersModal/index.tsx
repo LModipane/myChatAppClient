@@ -55,7 +55,9 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 								</Button>
 							</Stack>
 						</form>
-						{searcedResult && <SearchedUsersList />}
+						{searcedResult && (
+							<SearchedUsersList searchedUsers={searcedResult.searchUsers} />
+						)}
 					</ModalBody>
 				</ModalContent>
 			</Modal>
