@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react';
-import Conversations from './conversations';
-import Feed from './feed';
+import Conversations from './Conversations';
+import Feed from './Feed';
 
 type Props = {};
 
