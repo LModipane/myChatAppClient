@@ -1,11 +1,27 @@
-import React from 'react'
+import {
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalHeader,
+	ModalOverlay,
+} from '@chakra-ui/react';
 
-type Props = {}
+type Props = {};
 
-const SearchUsersModal = (props: Props) => {
-  return (
-    <div>SearchUsersModal</div>
-  )
-}
+const ConversationModal = (props: Props) => {
+	return (
+		<>
+			<Modal>
+				<ModalOverlay />
+				<ModalContent bg="whiteAlpha.100" pb="4" color="white">
+					<ModalHeader>search for other users</ModalHeader>
+					<ModalCloseButton />
+					<ModalBody></ModalBody>
+				</ModalContent>
+			</Modal>
+		</>
+	);
+};
 
-export default SearchUsersModal
+export default ConversationModal;
