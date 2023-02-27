@@ -8,3 +8,17 @@ export type SubmitUsernameResponse = {
 export type SubmitUsernameArgs = {
 	username: string;
 };
+
+		
+export type SearchUsersResponse = {
+	searchUsers: [SearchedUser]
+};
+
+export type SearchedUser = {
+	id: string,
+	username: string,
+}
+
+export type SearchedForUsersArs = {
+	searchedUsername: string,
+}

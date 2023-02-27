@@ -7,6 +7,14 @@ const operations = {
 				hello
 			}
 		`,
+		GET_OTHER_USERS_STRING: gql`
+			query getSearchedUsers($searchedUsername: string!) {
+				searchForUsers(searchedUsername: $searchedUsername) {
+					id
+					username
+				}
+			}
+		`,
 	},
 	Mutation: {
 		POST_USERNAME_STRING: gql`

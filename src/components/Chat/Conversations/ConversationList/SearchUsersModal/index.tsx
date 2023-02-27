@@ -1,3 +1,6 @@
+import { SearchedForUsersArs, SearchUsersResponse } from '@/lib/@types/types';
+import operations from '@/lib/graphQL/operations';
+import { useLazyQuery } from '@apollo/client';
 import {
 	Button,
 	Input,
@@ -18,11 +21,15 @@ type Props = {
 
 const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 	const [searchedUsername, setSearchedUsername] = useState('');
+	
+	const [searchForUsers, { data: searcedResult, loading }] = useLazyQuery<
+		SearchUsersResponse,
+		SearchedForUsersArs
+	>(operations.Query.GET_OTHER_USERS_STRING); //we dont need to make the query when the page loads rather we want to make the query in the handle submit method so we will use the uselazyquery hook so that we can use the handler function in the handle submit method
+
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
-		/**
-		 * this is where we will send the request to search for users to our apollo server
-		 */
+		searchForUsers({ variables: { searchedUsername } });
 	};
 	return (
 		<>
