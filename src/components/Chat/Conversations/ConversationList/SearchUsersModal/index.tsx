@@ -58,7 +58,9 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 	};
 
 	const { data: session } = useSession();
+
 	const myUserId = session?.user.id as string;
+	
 	const [beginConversation, { loading: loadingConversation }] = useMutation<
 		CreateConversationResponse,
 		CreateConversationArgs
