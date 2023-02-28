@@ -23,6 +23,7 @@ import SearchedUsersList from './SearchedUsersList';
 import AddedUsersList from './AddedUsersList';
 import { toast } from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 type Props = {
 	isOpen: boolean;
@@ -62,12 +63,21 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 		CreateConversationArgs
 	>(operations.Mutation.POST_CONVERSATION_STRING);
 
+	const router = useRouter();
+
 	const createConversation = async () => {
 		const addedUserIds = [myUserId, ...addedUsers.map(user => user.id)];
 		try {
-			const data = await beginConversation({ variables: { addedUserIds } });
+			const { data } = await beginConversation({ variables: { addedUserIds } });
+			if (!data?.createConversation)
+				throw new Error('failed to create conversation');
+			const { conversationId } = data.createConversation;
+			router.push({ query: { conversationId } }); //this will "redirect" user to that conversation feed
 
-			console.log(data);
+			//clean state
+			setAddedUsers([]);
+			setSearchedUsername('');
+			onClose();
 		} catch (error: any) {
 			console.log('creating conversation error: ', error);
 			toast.error(error?.message);
