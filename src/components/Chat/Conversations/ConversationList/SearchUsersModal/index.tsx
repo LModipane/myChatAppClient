@@ -44,6 +44,12 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 		setAddedUsers(preAddedUsers => [...preAddedUsers, user]);
 	};
 
+	const removeAddedUser = (userId: string) => {
+		setAddedUsers(preAddedUsers =>
+			preAddedUsers.filter(user => user.id === userId),
+		);
+	};
+
 	return (
 		<>
 			<Modal isOpen={isOpen} onClose={onClose}>
@@ -76,7 +82,10 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 						)}
 						{addedUsers.length !== 0 && (
 							<>
-								<AddedUsersList />
+								<AddedUsersList
+									removeAddedUsers={removeAddedUser}
+									addedUsers={addedUsers}
+								/>
 								<Button
 									bg="brand.100"
 									width="100%"
@@ -84,7 +93,7 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 									_hover={{ bg: 'brand.100' }}>
 									Start chats
 								</Button>
-							</> //look here
+							</> 
 						)}
 					</ModalBody>
 				</ModalContent>
