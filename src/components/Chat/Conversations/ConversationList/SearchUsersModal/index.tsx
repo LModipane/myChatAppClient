@@ -11,6 +11,8 @@ import {
 	Stack,
 } from '@chakra-ui/react';
 import {
+	CreateConversationArgs,
+	CreateConversationResponse,
 	SearchedUser,
 	SearchedUsersArs,
 	SearchUsersResponse,
@@ -54,15 +56,17 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 	};
 
 	const { data: session } = useSession();
-	const { id: myUserId } = session?.user!;
-	const [beginConversation, { loading: loadingConversation }] = useMutation(
-		operations.Mutation.POST_CONVERSATION_STRING,
-	);
+	const myUserId = session?.user.id as string;
+	const [beginConversation, { loading: loadingConversation }] = useMutation<
+		CreateConversationResponse,
+		CreateConversationArgs
+	>(operations.Mutation.POST_CONVERSATION_STRING);
 
 	const createConversation = async () => {
 		const addedUserIds = [myUserId, ...addedUsers.map(user => user.id)];
 		try {
 			const data = await beginConversation({ variables: { addedUserIds } });
+
 			console.log(data);
 		} catch (error: any) {
 			console.log('creating conversation error: ', error);
