@@ -1,3 +1,5 @@
+import type {Conversation} from '../../../../apollo-server/src/lib/@types/resolversTypes';
+
 export type SubmitUsernameResponse = {
 	submitUsername: {
 		success: boolean;
@@ -31,3 +33,7 @@ export type CreateConversationResponse = {
 export type CreateConversationArgs = {
 	addedUserIds: string[];
 };
+
+export type ConversationsResponse = {
+	conversations: Conversation[]
+}

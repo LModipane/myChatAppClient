@@ -1,5 +1,26 @@
 import { gql } from '@apollo/client';
 
+const conversationFields = `
+    id
+	addedUsers {
+		user {
+			id
+			username
+		}
+		hasSeenLastestMessage
+	}
+	latestMessage {
+		id
+		sender {
+			id
+			username
+		}
+		body
+		createAt
+	}
+	updatedAt
+`;
+
 const operations = {
 	Query: {
 		GET_MESSAGE_STRING: gql`
@@ -12,6 +33,13 @@ const operations = {
 				searchUsers(searchedUsername: $searchedUsername) {
 					username
 					id
+				}
+			}
+		`,
+		GET_CONVERSATION_STRING: gql`
+			query GetConversations {
+				getConversations {
+					${conversationFields}
 				}
 			}
 		`,
