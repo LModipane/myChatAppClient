@@ -1,4 +1,4 @@
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import {
 	Button,
 	Input,
@@ -19,6 +19,8 @@ import operations from '@/lib/graphQL/operations';
 import { useState } from 'react';
 import SearchedUsersList from './SearchedUsersList';
 import AddedUsersList from './AddedUsersList';
+import { toast } from 'react-hot-toast';
+import { useSession } from 'next-auth/react';
 
 type Props = {
 	isOpen: boolean;
@@ -38,6 +40,7 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 	const handleSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 		searchForUsers({ variables: { searchedUsername } });
+		console.log(searcedResult);
 	};
 
 	const addUser = (user: SearchedUser) => {
@@ -48,6 +51,23 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 		setAddedUsers(preAddedUsers =>
 			preAddedUsers.filter(user => user.id === userId),
 		);
+	};
+
+	const { data: session } = useSession();
+	const { id: myUserId } = session?.user!;
+	const [beginConversation, { loading: loadingConversation }] = useMutation(
+		operations.Mutation.POST_CONVERSATION_STRING,
+	);
+
+	const createConversation = async () => {
+		const addedUserIds = [myUserId, ...addedUsers.map(user => user.id)];
+		try {
+			const data = await beginConversation({ variables: { addedUserIds } });
+			console.log(data);
+		} catch (error: any) {
+			console.log('creating conversation error: ', error);
+			toast.error(error?.message);
+		}
 	};
 
 	return (
@@ -69,6 +89,7 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 								<Button
 									type="submit"
 									bg="whiteAlpha.100"
+									isLoading={loading}
 									isDisabled={!searchedUsername}>
 									search
 								</Button>
@@ -90,10 +111,11 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 									bg="brand.100"
 									width="100%"
 									mt="6"
+									onClick={() => createConversation()}
 									_hover={{ bg: 'brand.100' }}>
-									Start chats
+									Start chat
 								</Button>
-							</> 
+							</>
 						)}
 					</ModalBody>
 				</ModalContent>

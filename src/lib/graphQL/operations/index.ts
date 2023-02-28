@@ -8,10 +8,10 @@ const operations = {
 			}
 		`,
 		GET_OTHER_USERS_STRING: gql`
-			query getSearchedUsers($searchedUsername: string!) {
-				searchForUsers(searchedUsername: $searchedUsername) {
-					id
+			query getUsers($searchedUsername: String!) {
+				searchUsers(searchedUsername: $searchedUsername) {
 					username
+					id
 				}
 			}
 		`,
@@ -24,7 +24,14 @@ const operations = {
 					message
 				}
 			}
-		`, //look here
+		`,
+		POST_CONVERSATION_STRING: gql`
+			mutation Mutation($addedUserIds: [String!]!) {
+				createConversation(addedUserIds: $addedUserIds) {
+					conversationId
+				}
+			}
+		`,
 	},
 };
 
