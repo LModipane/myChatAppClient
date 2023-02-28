@@ -13,8 +13,8 @@ const CreateUsername = (props: Props) => {
 	const [submitUsername, { loading }] = useMutation<
 		SubmitUsernameResponse,
 		SubmitUsernameArgs
-		>(UsersOperations.Mutation.POST_USERNAME_STRING);
-	
+	>(UsersOperations.Mutation.POST_USERNAME_STRING);
+
 	const reloadSession = async () => {
 		const event = new Event('visibilitychange');
 		document.dispatchEvent(event);
@@ -29,7 +29,7 @@ const CreateUsername = (props: Props) => {
 			if (!success) throw new Error(message);
 			toast.success(message);
 			reloadSession();
-		} catch (error:any) {
+		} catch (error: any) {
 			toast.error(error.message);
 			console.log(error);
 		}
@@ -44,7 +44,7 @@ const CreateUsername = (props: Props) => {
 				value={username}
 				onChange={event => setUsername(event.target.value)}
 			/>
-			<Button width="100%" onClick={handleSubmit}>
+			<Button width="100%" onClick={handleSubmit} isLoading={loading}>
 				Submit
 			</Button>
 		</Stack>
