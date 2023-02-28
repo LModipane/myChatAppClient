@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Stack, Text, Input, Button } from '@chakra-ui/react';
-import operations from '../../../lib/graphQL/operations';
+import UsersOperations from '../../../lib/graphQL/operations/users';
 import { useMutation } from '@apollo/client';
 import { SubmitUsernameResponse, SubmitUsernameArgs } from '@/lib/@types/types';
 import toast from 'react-hot-toast';
@@ -13,7 +13,7 @@ const CreateUsername = (props: Props) => {
 	const [submitUsername, { loading }] = useMutation<
 		SubmitUsernameResponse,
 		SubmitUsernameArgs
-		>(operations.Mutation.POST_USERNAME_STRING);
+		>(UsersOperations.Mutation.POST_USERNAME_STRING);
 	
 	const reloadSession = async () => {
 		const event = new Event('visibilitychange');

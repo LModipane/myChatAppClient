@@ -17,7 +17,8 @@ import {
 	SearchedUsersArs,
 	SearchUsersResponse,
 } from '@/lib/@types/types';
-import operations from '@/lib/graphQL/operations';
+import UsersOperations from '@/lib/graphQL/operations/users';
+import ConversationsOperations from '@/lib/graphQL/operations/conversations';
 import { useState } from 'react';
 import SearchedUsersList from './SearchedUsersList';
 import AddedUsersList from './AddedUsersList';
@@ -38,12 +39,12 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 	const [searchForUsers, { data: searcedResult, loading }] = useLazyQuery<
 		SearchUsersResponse,
 		SearchedUsersArs
-	>(operations.Query.GET_OTHER_USERS_STRING); //we don need to make the query when the page loads rather we want to make the query in the handle submit method
+	>(UsersOperations.Query.GET_OTHER_USERS_STRING); //we don need to make the query when the page loads rather we want to make the query in the handle submit method
 
-	const handleSubmit = (event: React.FormEvent) => {
+	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
-		searchForUsers({ variables: { searchedUsername } });
-		console.log(searcedResult);
+		const { error } = await searchForUsers({ variables: { searchedUsername } });
+		if (error) toast.error('Opps, search failed');
 	};
 
 	const addUser = (user: SearchedUser) => {
@@ -61,7 +62,7 @@ const SearchUsersModal = ({ isOpen, onClose }: Props) => {
 	const [beginConversation, { loading: loadingConversation }] = useMutation<
 		CreateConversationResponse,
 		CreateConversationArgs
-	>(operations.Mutation.POST_CONVERSATION_STRING);
+	>(ConversationsOperations.Mutation.POST_CONVERSATION_STRING);
 
 	const router = useRouter();
 
