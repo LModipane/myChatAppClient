@@ -1,10 +1,14 @@
 import { Box, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { Conversation } from '../../../../../../apollo-server/src/lib/@types/resolversTypes';
+import ConversationItem from './ConversationItem';
 import ConversationModal from './SearchUsersModal';
 
-type Props = {};
+type Props = {
+	conversations: Conversation[];
+};
 
-const ConversationList = (props: Props) => {
+const ConversationList = ({ conversations }: Props) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const onOpen = () => setIsOpen(true);
 	const onClose = () => setIsOpen(false);
@@ -25,7 +29,9 @@ const ConversationList = (props: Props) => {
 				</Text>
 			</Box>
 			<ConversationModal onClose={onClose} isOpen={isOpen} />
-			{/**look here */}
+			{conversations.map(conversation => (
+				<ConversationItem key={conversation.id} conversation={ conversation} />
+			))}
 		</Box>
 	);
 };
