@@ -15,7 +15,7 @@ const SearchedUsersList = ({ searchedUsers, addUser }: Props) => {
 					<Text>no users found</Text>
 				</Flex>
 			) : (
-				<Stack>
+				<Stack my="3">
 					{searchedUsers.map(user => {
 						return (
 							<Stack
