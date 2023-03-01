@@ -1,4 +1,4 @@
-import type {Conversation} from '../../../../apollo-server/src/lib/@types/resolversTypes';
+import type { Conversation } from '../../../../apollo-server/src/lib/@types/resolversTypes';
 
 export type SubmitUsernameResponse = {
 	submitUsername: {
@@ -35,5 +35,9 @@ export type CreateConversationArgs = {
 };
 
 export type ConversationsResponse = {
-	conversations: Conversation[]
-}
+	conversations: Conversation[];
+};
+
+export type SubscriptionResponse = {
+	subscriptionData: { data: { conversationCreated: Conversation } };
+};

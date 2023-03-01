@@ -39,7 +39,16 @@ const operations = {
 				}
 			}
 		`,
-	},
+    },
+    Subscription: {
+        SUBSCRIBE_TO_NEW_CONVERSATIONS_STRING: gql`
+            subscription ConversationCreated {
+                conversationCreated {
+                    ${conversationFields}
+                }
+            }
+        `
+    }
 };
 
 export default operations;

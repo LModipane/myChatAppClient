@@ -15,8 +15,8 @@ const wsLink =
 				createClient({
 					url: 'ws://localhost:4000/graphql/subscriptions',
 					connectionParams: async () => ({
-						session: await getSession,
-					}),//this is what i want to pass to subscriptions resolver context 
+						session: await getSession(),
+					}), //this is what i want to pass to subscriptions resolver context
 				}),
 		  )
 		: null;
