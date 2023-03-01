@@ -9,10 +9,10 @@ const Feed = (props: Props) => {
 	const { conversationId } = router.query;
 	return (
 		<Flex
+			display={{ base: conversationId ? 'flex' : 'none', md: 'flex' }}
 			width="100%"
 			border="1px solid red"
-			direction="column"
-			display={{ base: conversationId ? 'flex' : 'nono', md: 'flex' }}>
+			direction="column">
 			{conversationId ? (
 				<Flex>{`you are in conversation ${conversationId}`}</Flex>
 			) : (

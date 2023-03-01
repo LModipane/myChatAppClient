@@ -1,7 +1,11 @@
-import { ConversationsResponse, SubscriptionResponse } from '@/lib/@types/types';
+import {
+	ConversationsResponse,
+	SubscriptionResponse,
+} from '@/lib/@types/types';
 import operations from '@/lib/graphQL/operations/conversations';
 import { useQuery } from '@apollo/client';
 import { Box } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { Conversation } from '../../../../../apollo-server/src/lib/@types/resolversTypes';
@@ -17,7 +21,6 @@ const Conversations = (props: Props) => {
 		subscribeToMore,
 	} = useQuery<ConversationsResponse>(operations.Query.GET_CONVERSATION_STRING);
 	if (error) toast.error('failed to fetch Conversation');
-
 
 	const subscribeToNewConversations = () => {
 		subscribeToMore({
@@ -39,8 +42,12 @@ const Conversations = (props: Props) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	const router = useRouter();
+	const { conversationId } = router.query;
+
 	return (
 		<Box
+			display={{ base: conversationId ? 'none' : 'flex', md: 'flex' }}
 			width={{ base: '100%', md: '400px' }}
 			className="conversations-wrapper"
 			bg="gray.700"
