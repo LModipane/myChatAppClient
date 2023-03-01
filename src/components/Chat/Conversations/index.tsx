@@ -24,7 +24,6 @@ const Conversations = (props: Props) => {
 			document: operations.Subscription.SUBSCRIBE_TO_NEW_CONVERSATIONS_STRING,
 			updateQuery: (prev, { subscriptionData }: SubscriptionResponse) => {
 				if (!subscriptionData.data) return prev;
-				console.log(subscriptionData);
 
 				const newConversation = subscriptionData.data.conversationCreated;
 

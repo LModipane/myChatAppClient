@@ -2,7 +2,7 @@ import { ApolloClient, HttpLink, InMemoryCache, split } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { createClient } from 'graphql-ws';
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 
 const httpLink = new HttpLink({
 	uri: 'http://localhost:4000/graphql', //here is the endpoints to our graphql server
@@ -14,9 +14,10 @@ const wsLink =
 		? new GraphQLWsLink(
 				createClient({
 					url: 'ws://localhost:4000/graphql/subscriptions',
-					connectionParams: async () => ({
-						session: await getSession(),
-					}), //this is what i want to pass to subscriptions resolver context
+					connectionParams: async () => {
+						const session = await getSession();
+						return { session };
+					}, //this is what i want to pass to subscriptions resolver context
 				}),
 		  )
 		: null;
