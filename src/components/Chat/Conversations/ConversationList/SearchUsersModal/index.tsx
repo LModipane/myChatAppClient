@@ -1,4 +1,8 @@
+import ConversationsOperations from '@/lib/graphQL/operations/conversations';
+import UsersOperations from '@/lib/graphQL/operations/users';
 import { useLazyQuery, useMutation } from '@apollo/client';
+import SearchedUsersList from './SearchedUsersList';
+import AddedUsersList from './AddedUsersList';
 import {
 	Button,
 	Input,
@@ -17,11 +21,7 @@ import {
 	SearchedUsersArs,
 	SearchUsersResponse,
 } from '@/lib/@types/types';
-import UsersOperations from '@/lib/graphQL/operations/users';
-import ConversationsOperations from '@/lib/graphQL/operations/conversations';
 import { useState } from 'react';
-import SearchedUsersList from './SearchedUsersList';
-import AddedUsersList from './AddedUsersList';
 import { toast } from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
