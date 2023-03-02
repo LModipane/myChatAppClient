@@ -7,6 +7,8 @@ import { enUS } from 'date-fns/locale';
 
 type Props = {
 	conversation: Conversation;
+	onClick: () => void;
+	isSelected: boolean;
 };
 
 const formatRelativeLocale = {
@@ -16,18 +18,19 @@ const formatRelativeLocale = {
 	other: 'MM/dd/yy',
 };
 
-const ConversationItem = ({ conversation }: Props) => {
-	const isSelected = true;
-	const hasSeenLatestMessage = false;
+const ConversationItem = ({ conversation, onClick, isSelected }: Props) => {
+	const hasSeenLatestMessage = true;
 	return (
 		<Stack
+			onClick={onClick}
+			my="1"
 			direction="row"
 			align="center"
 			justifyContent="space-between"
 			p="4"
 			cursor="pointer"
 			borderRadius="4"
-			bg={isSelected ? 'whiteAlpho' : 'none'}
+			bg={isSelected ? 'whiteAlpha.200' : 'none'}
 			_hover={{ bg: 'whiteAlpha.200' }}
 			position="relative">
 			<Flex position="absolute" left="-3px">
@@ -43,9 +46,24 @@ const ConversationItem = ({ conversation }: Props) => {
 						whiteSpace="nowrap"
 						overflow="hidden"
 						textOverflow="ellpsis">
-						{ conversation.id}
+						{conversation.id}
 					</Text>
 				</Flex>
+				<Text
+					color="whiteAlpha.700"
+					textAlign="right"
+					position="absolute"
+					right={4}>
+					{/* {formatRelative (new Date(conversation.updateAt), new Date(), {
+						locale: {
+							...enUS,
+							formatRelative: token =>
+								formatRelativeLocale[
+									token as keyof typeof formatRelativeLocale
+								],
+						},//do research on date-fn for
+					})} */}
+				</Text>
 			</Flex>
 		</Stack>
 	);
