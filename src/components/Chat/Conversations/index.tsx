@@ -1,3 +1,4 @@
+import SkeletonLoader from '@/components/Common/SkeletonLoader';
 import {
 	ConversationsResponse,
 	SubscriptionResponse,
@@ -52,11 +53,16 @@ const Conversations = (props: Props) => {
 			className="conversations-wrapper"
 			bg="gray.700"
 			py="6"
+			flexDirection="column"
+			gap="5"
 			px="3">
-			{/* Skelenton loader */}
-			<ConversationList
-				conversations={conservationsData?.conversations || []}
-			/>
+			{loading ? (
+				<SkeletonLoader count={10} height="70px" width="100%" />
+			) : (
+				<ConversationList
+					conversations={conservationsData?.conversations || []}
+				/>
+			)}
 		</Box>
 	);
 };
