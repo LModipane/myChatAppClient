@@ -1,4 +1,7 @@
-import type { Conversation } from '../../../../apollo-server/src/lib/@types/resolversTypes';
+import type {
+	Conversation,
+	PopulatedMessage,
+} from '../../../../apollo-server/src/lib/@types/resolversTypes';
 
 export type SubmitUsernameResponse = {
 	submitUsername: {
@@ -40,4 +43,23 @@ export type ConversationsResponse = {
 
 export type SubscriptionResponse = {
 	subscriptionData: { data: { conversationCreated: Conversation } };
+};
+
+export type MessagesResponse = {
+	messages: PopulatedMessage[];
+};
+
+export type MessagesArgs = {
+	conversationId: string;
+};
+
+export type sendMessageResponse = {
+	sendMessage: boolean;
+};
+
+export type sendMessageArgs = {
+	messageId: string;
+	senderId: string;
+	conversationId: string;
+	body: string;
 };

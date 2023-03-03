@@ -22,7 +22,7 @@ const Feed = (props: Props) => {
 					flexGrow="1"
 					border="1px solid red">
 					<FeedHeader conversationId={conversationId} />
-					{/* <Messages />  */}
+					<Messages conversationId={conversationId} />
 					<MessageInput conversationId={conversationId} />
 				</Flex>
 			) : (
