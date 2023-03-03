@@ -1,11 +1,8 @@
 import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React from 'react';
 import FeedHeader from './Header';
-import conversationOperations from '@/lib/graphQL/operations/conversations';
-import { useQuery } from '@apollo/client';
-import { ConversationsResponse } from '@/lib/@types/types';
-
+import Messages from './Messages';
+import MessageInput from './Messages/Input';
 type Props = {};
 
 const Feed = (props: Props) => {
@@ -25,6 +22,8 @@ const Feed = (props: Props) => {
 					flexGrow="1"
 					border="1px solid red">
 					<FeedHeader conversationId={conversationId} />
+					{/* <Messages />  */}
+					<MessageInput conversationId={conversationId} />
 				</Flex>
 			) : (
 				<Flex>Select conversation</Flex>
