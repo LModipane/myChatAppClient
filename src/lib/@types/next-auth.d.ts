@@ -6,7 +6,7 @@ declare module 'next-auth' {
 	}
 
 	interface User {
-		id: String;
-		username: String;
+		id: string;
+		username: string;
 	}
 } //these types will be combined with the exissting User and Session interfaces rather than replacing them
