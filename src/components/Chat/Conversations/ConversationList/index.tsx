@@ -39,7 +39,7 @@ const ConversationList = ({ conversations }: Props) => {
 				</Text>
 			</Box>
 			<ConversationModal onClose={onClose} isOpen={isOpen} />
-			{typeof conversationId === "string" && conversations.map(conversation => (
+			{ conversations.map(conversation => (
 				<ConversationItem
 					key={conversation.id}
 					conversation={conversation}
