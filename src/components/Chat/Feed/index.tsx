@@ -1,6 +1,10 @@
 import { Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
+import FeedHeader from './Header';
+import conversationOperations from '@/lib/graphQL/operations/conversations';
+import { useQuery } from '@apollo/client';
+import { ConversationsResponse } from '@/lib/@types/types';
 
 type Props = {};
 
@@ -13,10 +17,17 @@ const Feed = (props: Props) => {
 			width="100%"
 			border="1px solid red"
 			direction="column">
-			{conversationId ? (
-				<Flex>{`you are in conversation ${conversationId}`}</Flex>
+			{typeof conversationId === 'string' && conversationId ? (
+				<Flex
+					direction="column"
+					justify="space-between"
+					overflow="hidden"
+					flexGrow="1"
+					border="1px solid red">
+					<FeedHeader conversationId={conversationId} />
+				</Flex>
 			) : (
-				<Flex>conversation feed</Flex>
+				<Flex>Select conversation</Flex>
 			)}
 		</Flex>
 	);
