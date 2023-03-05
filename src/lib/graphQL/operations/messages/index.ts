@@ -22,20 +22,24 @@ const operations = {
 	},
 	Mutation: {
 		POST_MESSAGE_STRING: gql`
-            mutation SendMessage($messageId: ID!, $conversationId: ID!, $senderId: ID!, $body: String!){
-                sendMessage(messageId: $messageId, conversationId: $conversationId, senderId: $senderId, body: $body)
-            }
-        `,
+			mutation Mutation($conversationId: ID!, $senderId: ID!, $body: String!) {
+				sendMessage(
+					conversationId: $conversationId
+					senderId: $senderId
+					body: $body
+				)
+			}
+		`,
 	},
-    Subscription: {
-        SUBSCRIBE_MESSAGE_EVENTS: gql`
+	Subscription: {
+		SUBSCRIBE_MESSAGE_EVENTS: gql`
             subscription MessageSent($conversationId: String!){
                 messageSent(conversationId: $conversationId) {
                     ${messageFields}
                 }
             }
-        `
-    },
+        `,
+	},
 };
 
 export default operations;

@@ -58,7 +58,6 @@ export type sendMessageResponse = {
 };
 
 export type sendMessageArgs = {
-	messageId: string;
 	senderId: string;
 	conversationId: string;
 	body: string;

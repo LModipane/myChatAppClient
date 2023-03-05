@@ -1,4 +1,8 @@
+import { sendMessageArgs, sendMessageResponse } from '@/lib/@types/types';
+import messageOperations from '@/lib/graphQL/operations/messages';
+import { useMutation } from '@apollo/client';
 import { Box, Input } from '@chakra-ui/react';
+import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -8,20 +12,31 @@ type Props = {
 
 const MessageInput = ({ conversationId }: Props) => {
 	const [messageBody, setMessageBody] = useState('');
-	const sendMessage = async (event: React.FormEvent) => {
+	const [sendMessage] = useMutation<sendMessageResponse, sendMessageArgs>(
+		messageOperations.Mutation.POST_MESSAGE_STRING,
+	);
+
+	const { data: session } = useSession();
+	if (!session) throw new Error('not authorised');
+	const { id: senderId } = session.user;
+	const newMessage: sendMessageArgs = {
+		senderId,
+		conversationId,
+		body: messageBody,
+	};
+
+	const onSendMessage = async (event: React.FormEvent) => {
 		event.preventDefault();
 		try {
-			/**
-			 * send the message
-			 */
+			await sendMessage({ variables: { ...newMessage } });
 		} catch (error) {
-			console.error("sendMessage error: ", error);
+			console.log('Opps, onSendMessage error: ', error);
 			toast.error('failed to send message');
 		}
 	};
 	return (
 		<Box px="4" py="6" width="100%">
-			<form onSubmit={event => sendMessage(event)}>
+			<form onSubmit={event => onSendMessage(event)}>
 				<Input
 					type="text"
 					value={messageBody}
