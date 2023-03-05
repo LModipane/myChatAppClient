@@ -1,15 +1,14 @@
 import SkeletonLoader from '@/components/Common/SkeletonLoader';
 import {
 	ConversationsResponse,
-	SubscriptionResponse,
+	SubscriptionResponse
 } from '@/lib/@types/types';
 import operations from '@/lib/graphQL/operations/conversations';
 import { useQuery } from '@apollo/client';
 import { Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { Conversation } from '../../../../../apollo-server/src/lib/@types/resolversTypes';
 import ConversationList from './ConversationList';
 
 type Props = {};

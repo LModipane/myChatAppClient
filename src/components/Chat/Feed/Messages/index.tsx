@@ -23,7 +23,6 @@ const Messages = ({ conversationId }: Props) => {
 	});
 	if (error) toast.error('failed to load messages');
 
-	console.log('Here are the messages:', data);
 	return (
 		<Flex flexDirection="column" gap="4" justify="flex-end" overflow="hidden">
 			{loading && <SkeletonLoader count={4} height="20px" width="100%" />}
