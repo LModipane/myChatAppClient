@@ -41,7 +41,7 @@ export type ConversationsResponse = {
 	conversations: Conversation[];
 };
 
-export type SubscriptionResponse = {
+export type ConversationsSubscriptionResponse = {
 	subscriptionData: { data: { conversationCreated: Conversation } };
 };
 
@@ -61,4 +61,8 @@ export type sendMessageArgs = {
 	senderId: string;
 	conversationId: string;
 	body: string;
+};
+
+export type MessagesSubscriptionReponse = {
+	subscriptionData: { data: { messageSent: PopulatedMessage } };
 };

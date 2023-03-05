@@ -1,7 +1,7 @@
 import SkeletonLoader from '@/components/Common/SkeletonLoader';
 import {
 	ConversationsResponse,
-	SubscriptionResponse
+	ConversationsSubscriptionResponse,
 } from '@/lib/@types/types';
 import operations from '@/lib/graphQL/operations/conversations';
 import { useQuery } from '@apollo/client';
@@ -25,7 +25,7 @@ const Conversations = (props: Props) => {
 	const subscribeToNewConversations = () => {
 		subscribeToMore({
 			document: operations.Subscription.SUBSCRIBE_TO_NEW_CONVERSATIONS_STRING,
-			updateQuery: (prev, { subscriptionData }: SubscriptionResponse) => {
+			updateQuery: (prev, { subscriptionData }: ConversationsSubscriptionResponse) => {
 				if (!subscriptionData.data) return prev;
 
 				const newConversation = subscriptionData.data.conversationCreated;
