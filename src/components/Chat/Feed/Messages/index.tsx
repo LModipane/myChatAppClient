@@ -20,7 +20,6 @@ const Messages = ({ conversationId }: Props) => {
 	const { data: session } = useSession();
 	if (!session) throw new Error(`not authenticated`);
 
-
 	const { id: myUserId } = session.user;
 	const { data, loading, subscribeToMore } = useQuery<
 		MessagesResponse,
@@ -42,7 +41,6 @@ const Messages = ({ conversationId }: Props) => {
 			) => {
 				if (!subscriptionData.data) return prev;
 				//add notification fetch
-				console.log('from subscription: ', subscriptionData.data);
 				const newMessage = subscriptionData.data.messageSent;
 				return Object.assign({}, prev, {
 					messages: [newMessage, ...prev.messages],
@@ -56,7 +54,6 @@ const Messages = ({ conversationId }: Props) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [conversationId]);
 
-
 	return (
 		<Flex
 			flexDirection="column-reverse"
@@ -69,9 +66,8 @@ const Messages = ({ conversationId }: Props) => {
 				data.messages.map(message => (
 					<MessageItem
 						key={message.id}
-						body={message.body}
-						sentByMe={message.sender.id === myUserId}
-						senderName={ message.sender.username || "NA"}
+						message={message}
+						sentByMyUser={message.sender.id === myUserId}
 					/>
 				))}
 		</Flex>
